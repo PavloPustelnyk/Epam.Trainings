@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Epam.TrainingRunners;
 
 namespace Epam.Trainings
 {
@@ -6,7 +8,14 @@ namespace Epam.Trainings
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var runners = new List<TrainingRunner>
+            {
+                new FirstTrainingRunner(new ConsolePrinter())
+            };
+
+            runners.ForEach(r => r.Run());
+
+            Console.ReadLine();
         }
     }
 }
