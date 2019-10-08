@@ -4,7 +4,7 @@ using Epam.TrainingRunners;
 
 namespace Epam.Trainings
 {
-    static class Program
+    class Program
     {
         static void Main(string[] args)
         {
