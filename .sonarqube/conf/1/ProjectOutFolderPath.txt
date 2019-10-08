@@ -1,0 +1,1 @@
+c:\Education\csharp\VisualStudio\Epam.Trainings\.sonarqube\out\1

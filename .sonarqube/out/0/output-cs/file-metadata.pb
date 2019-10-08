@@ -1,0 +1,11 @@
+Z
+Qc:\Education\csharp\VisualStudio\Epam.Trainings\Training_1\Task_1\ICoordinates.csutf-8S
+Jc:\Education\csharp\VisualStudio\Epam.Trainings\Training_1\Task_1\ISize.csutf-8T
+Kc:\Education\csharp\VisualStudio\Epam.Trainings\Training_1\Task_1\Person.csutf-8W
+Nc:\Education\csharp\VisualStudio\Epam.Trainings\Training_1\Task_1\Rectangle.csutf-8T
+Kc:\Education\csharp\VisualStudio\Epam.Trainings\Training_1\Task_2\Colors.csutf-8\
+Sc:\Education\csharp\VisualStudio\Epam.Trainings\Training_1\Task_2\EnumExtensions.csutf-8W
+Nc:\Education\csharp\VisualStudio\Epam.Trainings\Training_1\Task_2\LongRange.csutf-8T
+Kc:\Education\csharp\VisualStudio\Epam.Trainings\Training_1\Task_2\Months.csutf-8Z
+OC:\Users\DDoS\AppData\Local\Temp\.NETCoreApp,Version=v2.2.AssemblyAttributes.csutf-8x
+mc:\Education\csharp\VisualStudio\Epam.Trainings\Training_1\obj\Debug\netcoreapp2.2\Training_1.AssemblyInfo.csutf-8

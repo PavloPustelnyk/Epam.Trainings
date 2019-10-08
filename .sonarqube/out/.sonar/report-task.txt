@@ -1,0 +1,6 @@
+projectKey=train
+serverUrl=http://localhost:9000
+serverVersion=7.9.1.27448
+dashboardUrl=http://localhost:9000/dashboard?id=train
+ceTaskId=AW2qd9p4D_AO0BuXVO_r
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AW2qd9p4D_AO0BuXVO_r
