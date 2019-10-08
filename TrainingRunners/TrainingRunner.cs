@@ -6,7 +6,7 @@ namespace Epam.TrainingRunners
     {
         protected IPrinter _printer;
 
-        public TrainingRunner(IPrinter printer)
+        protected TrainingRunner(IPrinter printer)
         {
             _printer = printer;
         }
