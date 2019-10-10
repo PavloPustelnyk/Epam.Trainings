@@ -11,5 +11,7 @@ namespace Epam.TrainingRunners
         public void Write(string s) => Console.Write(s);
 
         public void WriteLine(string s) => Console.WriteLine(s);
+
+        public void Clear() => Console.Clear();
     }
 }
