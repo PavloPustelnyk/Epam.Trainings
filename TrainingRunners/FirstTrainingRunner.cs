@@ -14,6 +14,7 @@ namespace Epam.TrainingRunners
 
         public override void Run()
         {
+            _printer.Clear();
             _printer.WriteLine("\n< TRAINING 1 >\n");
             try
             {
@@ -23,6 +24,10 @@ namespace Epam.TrainingRunners
             catch(ArgumentException exc)
             {
                 _printer.WriteLine("\n Error: " + exc.Message);
+            }
+            catch(FormatException exc)
+            {
+                _printer.WriteLine("\n Input error: " + exc.Message);
             }
         }
 
@@ -35,16 +40,16 @@ namespace Epam.TrainingRunners
             _printer.Write(" Age to compare: ");
             int age = int.Parse(_printer.ReadLine());
 
-            _printer.WriteLine(" > " + person.OlderThan(age));
+            _printer.WriteLine(" Result: " + person.OlderThan(age));
 
             ReadRectangle(out Rectangle rectangle);
 
-            _printer.WriteLine($" > Perimeter: {rectangle.Perimeter()}");
+            _printer.WriteLine($" Result: Perimeter = {rectangle.Perimeter()}");
         }
 
         private void Task2()
         {
-            _printer.WriteLine("\nTASK 2\n");
+            _printer.WriteLine("\n\nTASK 2\n");
 
             int n;
             _printer.Write(" Enter n: ");
