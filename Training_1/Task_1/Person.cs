@@ -6,11 +6,12 @@ namespace Epam.Training_1.Task_1
 {
     public struct Person
     {
+        private int _age;
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
 
-        private int _age;
         public int Age
         {
             get => _age;

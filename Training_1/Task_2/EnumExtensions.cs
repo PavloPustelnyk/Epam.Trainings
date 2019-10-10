@@ -15,7 +15,6 @@ namespace Epam.Training_1.Task_2
             {
                 result.Append($"{a} = {(int)a}; ");
             }
-
             return result.ToString();
         }
     }
