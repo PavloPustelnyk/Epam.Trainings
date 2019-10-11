@@ -116,8 +116,8 @@ namespace Epam.TrainingRunners
         private void LongRangeValuesTask()
         {
             _printer.WriteLine("\n LongRangeValues Enum:");
-            var longRangeValues = Enum.GetValues(typeof(LongRange));
             _printer.WriteLine(" \n LongRange: ");
+            var longRangeValues = Enum.GetValues(typeof(LongRange));
             foreach (var a in longRangeValues)
             {
                 _printer.Write($" {a} = {(long)a};");
@@ -127,17 +127,16 @@ namespace Epam.TrainingRunners
 
         private void ColorsTask()
         {
-            _printer.WriteLine("\n Colors Enum: ");
             Colors color = Colors.Black;
+            _printer.WriteLine("\n Colors Enum: ");
             _printer.WriteLine(" \n Colors: " + color.Values());
         }
 
         private void MonthsTask()
         {
             _printer.WriteLine("\n Months Enum:\n");
-            int n;
             _printer.Write(" Enter n: ");
-            if (int.TryParse(_printer.ReadLine(), out n) && n >= 0 && n < 12)
+            if (int.TryParse(_printer.ReadLine(), out int n) && n >= 0 && n < 12)
             {
                 _printer.WriteLine(" Month: " + Enum.GetName(typeof(Months), n));
             }
