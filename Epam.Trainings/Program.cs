@@ -10,7 +10,8 @@ namespace Epam.Trainings
         {
             var runners = new List<TrainingRunner>
             {
-                new FirstTrainingRunner(new ConsolePrinter())
+                //new FirstTrainingRunner(new ConsolePrinter()),
+                new SecondTrainingRunner(new ConsolePrinter())
             };
 
             runners.ForEach(r => r.Run());
