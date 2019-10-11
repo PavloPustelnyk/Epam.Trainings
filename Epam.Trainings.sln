@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epam.Trainings", "Epam.Trainings\Epam.Trainings.csproj", "{54D6B8CE-C3B1-414A-884F-C7BD6ECA7817}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epam.Trainings", "Epam.Trainings\Epam.Trainings.csproj", "{54D6B8CE-C3B1-414A-884F-C7BD6ECA7817}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Training_1", "Training_1\Training_1.csproj", "{6C3BBD0C-4CD4-49F8-ADD6-4D84AF4B77A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Training_1", "Training_1\Training_1.csproj", "{6C3BBD0C-4CD4-49F8-ADD6-4D84AF4B77A2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingRunners", "TrainingRunners\TrainingRunners.csproj", "{508BBD1B-DA23-4AFD-AA35-8CA66B2F7EEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingRunners", "TrainingRunners\TrainingRunners.csproj", "{508BBD1B-DA23-4AFD-AA35-8CA66B2F7EEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Training_2", "Training_2\Training_2.csproj", "{AB71F152-EEF8-4B7A-A1EA-73E7A3EB2789}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{508BBD1B-DA23-4AFD-AA35-8CA66B2F7EEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{508BBD1B-DA23-4AFD-AA35-8CA66B2F7EEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{508BBD1B-DA23-4AFD-AA35-8CA66B2F7EEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB71F152-EEF8-4B7A-A1EA-73E7A3EB2789}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB71F152-EEF8-4B7A-A1EA-73E7A3EB2789}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB71F152-EEF8-4B7A-A1EA-73E7A3EB2789}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB71F152-EEF8-4B7A-A1EA-73E7A3EB2789}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
