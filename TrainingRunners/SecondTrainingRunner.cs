@@ -34,16 +34,17 @@ namespace Epam.TrainingRunners
                 ExceptionTests.DoSomeMath(-1, 2);
             }
             catch (ArgumentException exc)
+            when(exc.ParamName == "a")
             {
                 _printer.WriteLine(exc.Message);
-                if (exc.ParamName == "a")
-                {
-                    _printer.Write("Change parameter A.");
-                }
-                else if (exc.ParamName == "b")
-                {
-                    _printer.Write("Change parameter B.");
-                }
+                _printer.Write("Change parameter A.");
+                
+            }
+            catch (ArgumentException exc)
+            when (exc.ParamName == "b")
+            {
+                _printer.WriteLine(exc.Message);
+                _printer.Write("Change parameter B.");
             }
         }
 
