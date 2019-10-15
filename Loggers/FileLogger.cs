@@ -8,9 +8,9 @@ namespace Epam.Loggers
 {
     public class FileLogger : ILogger
     {
-        protected FileWriter Writer { get; set; }
+        protected FileWriter LogWriter { get; set; }
 
-        protected FileReader Reader { get; set; }
+        protected FileReader LogReader { get; set; }
 
         public string FullFileName { get; set; }
 
@@ -34,8 +34,8 @@ namespace Epam.Loggers
             try
             {
                 FullFileName = fullFileName;
-                Writer = new FileWriter(fullFileName);
-                Reader = new FileReader(fullFileName);
+                LogWriter = new FileWriter(fullFileName);
+                LogReader = new FileReader(fullFileName);
                 canChange = true;
             }
             catch
@@ -50,7 +50,7 @@ namespace Epam.Loggers
             bool isOk = false;
             try
             {
-                Writer.WriteLine($"{DateTime.Now.ToLongTimeString()} " +
+                LogWriter.WriteLine($"{DateTime.Now.ToLongTimeString()} " +
                     $"{DateTime.Now.ToLongDateString()}   {message}");
                 isOk = true;
             }
@@ -66,8 +66,8 @@ namespace Epam.Loggers
             IEnumerable<string> log;
             try
             {
-                log = Reader.ReadAll();
-                Writer.Clear();
+                log = LogReader.ReadAll();
+                LogWriter.Clear();
             }
             catch
             {
@@ -76,6 +76,18 @@ namespace Epam.Loggers
             return log;
         }
 
-
+        public IEnumerable<string> ReadLog()
+        {
+            IEnumerable<string> log;
+            try
+            {
+                log = LogReader.ReadAll();
+            }
+            catch
+            {
+                log = null;
+            }
+            return log;
+        }
     }
 }

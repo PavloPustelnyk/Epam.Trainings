@@ -7,5 +7,6 @@ namespace Epam.Loggers
     {
         bool LogMessage(string message);
         IEnumerable<string> DumpLog();
+        IEnumerable<string> ReadLog();
     }
 }
