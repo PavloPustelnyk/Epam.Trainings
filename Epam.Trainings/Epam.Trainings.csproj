@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NLog" Version="4.6.7" />
+    <PackageReference Include="NLog.Config" Version="4.6.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Loggers\Loggers.csproj" />
     <ProjectReference Include="..\TrainingRunners\TrainingRunners.csproj" />
   </ItemGroup>
 
