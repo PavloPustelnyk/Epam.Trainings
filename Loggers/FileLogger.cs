@@ -12,7 +12,7 @@ namespace Epam.Loggers
 
         protected FileReader LogReader { get; set; }
 
-        public string FullFileName { get; set; }
+        public string FullFileName { get; private set; }
 
         public FileLogger(string fullFileName = "log.txt")
         {
