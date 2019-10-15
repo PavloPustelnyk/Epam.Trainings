@@ -2,26 +2,29 @@
 using System.Collections.Generic;
 using System.Text;
 using Epam.Training_2;
+using Epam.Readers;
+using Epam.Writers;
+using Epam.Loggers;
 
 namespace Epam.TrainingRunners
 {
-    public class SecondTrainingRunner : TrainingRunner
+    public class SecondTrainingRunner : ITrainingRunner
     {
-        public SecondTrainingRunner(IPrinter printer) : base(printer)
-        {
-        }
+        public IWriter Writer { get; set; }
+        public IReader Reader { get; set; }
+        public ILogger Logger { get; set; }
 
-        public override void Run()
+        public void Run()
         {
-            _printer.Clear();
-            _printer.WriteLine("\nTRAINING 2: Exceptions\n");
+            Writer.Clear();
+            Writer.WriteLine("\nTRAINING 2: Exceptions\n");
 
             OverflowTask();
             IndexOutOfRangeTask();
             ArgumentExcTask();
 
-            _printer.WriteLine("\nPress any key to continue...");
-            _printer.ReadLine();
+            Writer.WriteLine("\nPress any key to continue...");
+            Reader.ReadLine();
         }
 
         #region ExceptionTasks
@@ -30,21 +33,21 @@ namespace Epam.TrainingRunners
         {
             try
             {
-                _printer.WriteLine("\nTask 3: ArgumentException");
+                Writer.WriteLine("\nTask 3: ArgumentException");
                 ExceptionTests.DoSomeMath(-1, 2);
             }
             catch (ArgumentException exc)
             when(exc.ParamName == "a")
             {
-                _printer.WriteLine(exc.Message);
-                _printer.Write("Change parameter A.");
+                Writer.WriteLine(exc.Message);
+                Writer.Write("Change parameter A.");
                 
             }
             catch (ArgumentException exc)
             when (exc.ParamName == "b")
             {
-                _printer.WriteLine(exc.Message);
-                _printer.Write("Change parameter B.");
+                Writer.WriteLine(exc.Message);
+                Writer.Write("Change parameter B.");
             }
         }
 
@@ -52,12 +55,12 @@ namespace Epam.TrainingRunners
         {
             try
             {
-                _printer.WriteLine("\nTask 2: IndexoutOfRangeException");
+                Writer.WriteLine("\nTask 2: IndexoutOfRangeException");
                 ExceptionTests.IndexOutOfRange();
             }
             catch (IndexOutOfRangeException exc)
             {
-                _printer.WriteLine(exc.Message);
+                Writer.WriteLine(exc.Message);
             }
         }
 
@@ -65,18 +68,16 @@ namespace Epam.TrainingRunners
         {
             try
             {
-                _printer.WriteLine("\nTask 1: StackOverflowException");
-
-                bool shouldContinue = false;
-                _printer.Write("\nGenerate StackOverflowException? (y/n): ");
-                if (_printer.ReadLine() == "y")
+                Writer.WriteLine("\nTask 1: StackOverflowException");
+                Writer.Write("\nGenerate StackOverflowException? (y/n): ");
+                if (Reader.ReadLine() == "y")
                 {
                     ExceptionTests.StackOverflow();
                 }
             }
             catch (StackOverflowException exc)
             {
-                _printer.WriteLine(exc.Message);
+                Writer.WriteLine(exc.Message);
             }
         }
 

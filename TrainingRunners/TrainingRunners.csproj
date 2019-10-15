@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\InputReaders\InputReaders.csproj" />
+    <ProjectReference Include="..\Loggers\Loggers.csproj" />
+    <ProjectReference Include="..\OutputWriters\OutputWriters.csproj" />
     <ProjectReference Include="..\Training_1\Training_1.csproj" />
     <ProjectReference Include="..\Training_2\Training_2.csproj" />
+    <ProjectReference Include="..\Training_3\Training_3.csproj" />
   </ItemGroup>
 
 </Project>
