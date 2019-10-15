@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using System.Text;
 using Epam.Training_1.Task_1;
 using Epam.Training_1.Task_2;
+using Epam.Readers;
+using Epam.Writers;
+using Epam.Loggers;
 
 namespace Epam.TrainingRunners
 {
-    public class FirstTrainingRunner : TrainingRunner
+    public class FirstTrainingRunner : ITrainingRunner
     {
-        public FirstTrainingRunner(IPrinter printer) : base(printer)
-        {
-        }
+        public IWriter Writer { get; set; }
+        public IReader Reader { get; set; }
+        public ILogger Logger { get; set; }
 
-        public override void Run()
+        public void Run()
         {
-            _printer.Clear();
-            _printer.WriteLine("\nTRAINING 1: Structs and Enums\n");
+            Writer.Clear();
+            Writer.WriteLine("\nTRAINING 1: Structs and Enums\n");
             try
             {
                 StructsTask();
@@ -23,27 +26,27 @@ namespace Epam.TrainingRunners
             }
             catch(ArgumentException exc)
             {
-                _printer.WriteLine("\n Error: " + exc.Message);
+                Writer.WriteLine("\n Error: " + exc.Message);
             }
             catch(FormatException exc)
             {
-                _printer.WriteLine("\n Input error: " + exc.Message);
+                Writer.WriteLine("\n Input error: " + exc.Message);
             }
 
-            _printer.WriteLine("\nPress any key to continue...");
-            _printer.ReadLine();
+            Writer.WriteLine("\nPress any key to continue...");
+            Reader.ReadLine();
         }
 
         private void StructsTask()
         {
-            _printer.WriteLine("Task 1: Person and Rectangle Structs\n");
+            Writer.WriteLine("Task 1: Person and Rectangle Structs\n");
             PersonTask();
             RectangleTask();
         }
 
         private void EnumsTask()
         {
-            _printer.WriteLine("\nTask 2: Enums");
+            Writer.WriteLine("\nTask 2: Enums");
             MonthsTask();
             ColorsTask();
             LongRangeValuesTask();
@@ -53,21 +56,21 @@ namespace Epam.TrainingRunners
 
         private void RectangleTask()
         {
-            _printer.WriteLine("\n Rectangle Struct:");
+            Writer.WriteLine("\n Rectangle Struct:");
             ReadRectangle(out Rectangle rectangle);
 
-            _printer.WriteLine($" Result: Perimeter = {rectangle.Perimeter()}");
+            Writer.WriteLine($" Result: Perimeter = {rectangle.Perimeter()}");
         }
 
         private void PersonTask()
         {
-            _printer.WriteLine(" Person Struct:\n");
+            Writer.WriteLine(" Person Struct:\n");
             ReadPerson(out Person person);
 
-            _printer.Write(" Age to compare: ");
-            int age = int.Parse(_printer.ReadLine());
+            Writer.Write(" Age to compare: ");
+            int age = int.Parse(Reader.ReadLine());
 
-            _printer.WriteLine(" Result: " + person.OlderThan(age));
+            Writer.WriteLine(" Result: " + person.OlderThan(age));
         }
 
         private void ReadPerson(out Person person)
@@ -75,14 +78,14 @@ namespace Epam.TrainingRunners
             string firstName, lastName;
             int age;
 
-            _printer.Write(" Enter your first name: ");
-            firstName = _printer.ReadLine();
+            Writer.Write(" Enter your first name: ");
+            firstName = Reader.ReadLine();
 
-            _printer.Write(" Enter your last name: ");
-            lastName = _printer.ReadLine();
+            Writer.Write(" Enter your last name: ");
+            lastName = Reader.ReadLine();
 
-            _printer.Write(" Enter your age: ");
-            if (!int.TryParse(_printer.ReadLine(), out age))
+            Writer.Write(" Enter your age: ");
+            if (!int.TryParse(Reader.ReadLine(), out age))
             {
                 throw new ArgumentException("Age must be an integer type.");
             }
@@ -94,17 +97,17 @@ namespace Epam.TrainingRunners
         {
             double x, y, width, height;
 
-            _printer.Write("\n Enter X: ");
-            x = Double.Parse(_printer.ReadLine());
+            Writer.Write("\n Enter X: ");
+            x = Double.Parse(Reader.ReadLine());
 
-            _printer.Write(" Enter Y: ");
-            y = Double.Parse(_printer.ReadLine());
+            Writer.Write(" Enter Y: ");
+            y = Double.Parse(Reader.ReadLine());
 
-            _printer.Write(" Enter width: ");
-            width = Double.Parse(_printer.ReadLine());
+            Writer.Write(" Enter width: ");
+            width = Double.Parse(Reader.ReadLine());
 
-            _printer.Write(" Enter heigth: ");
-            height = Double.Parse(_printer.ReadLine());
+            Writer.Write(" Enter heigth: ");
+            height = Double.Parse(Reader.ReadLine());
 
             rectangle = new Rectangle { X = x, Y = y, Width = width, Height = height };
         }
@@ -115,34 +118,34 @@ namespace Epam.TrainingRunners
 
         private void LongRangeValuesTask()
         {
-            _printer.WriteLine("\n LongRangeValues Enum:");
-            _printer.WriteLine(" \n LongRange: ");
+            Writer.WriteLine("\n LongRangeValues Enum:");
+            Writer.WriteLine(" \n LongRange: ");
             var longRangeValues = Enum.GetValues(typeof(LongRange));
             foreach (var a in longRangeValues)
             {
-                _printer.Write($" {a} = {(long)a};");
+                Writer.Write($" {a} = {(long)a};");
             }
-            _printer.WriteLine();
+            Writer.WriteLine();
         }
 
         private void ColorsTask()
         {
             Colors color = Colors.Black;
-            _printer.WriteLine("\n Colors Enum: ");
-            _printer.WriteLine(" \n Colors: " + color.Values());
+            Writer.WriteLine("\n Colors Enum: ");
+            Writer.WriteLine(" \n Colors: " + color.Values());
         }
 
         private void MonthsTask()
         {
-            _printer.WriteLine("\n Months Enum:\n");
-            _printer.Write(" Enter n: ");
-            if (int.TryParse(_printer.ReadLine(), out int n) && n >= 0 && n < 12)
+            Writer.WriteLine("\n Months Enum:\n");
+            Writer.Write(" Enter n: ");
+            if (int.TryParse(Reader.ReadLine(), out int n) && n >= 0 && n < 12)
             {
-                _printer.WriteLine(" Month: " + Enum.GetName(typeof(Months), n));
+                Writer.WriteLine(" Month: " + Enum.GetName(typeof(Months), n));
             }
             else
             {
-                _printer.WriteLine(" Wrong input.");
+                Writer.WriteLine(" Wrong input.");
             }
         }
 
