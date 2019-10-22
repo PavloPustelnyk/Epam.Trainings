@@ -5,7 +5,7 @@ using Epam.Training_1.Task_1;
 using Epam.Training_1.Task_2;
 using Epam.Readers;
 using Epam.Writers;
-using Epam.Loggers;
+using Epam.Logger;
 
 namespace Epam.TrainingRunners
 {
@@ -19,6 +19,7 @@ namespace Epam.TrainingRunners
         {
             Writer.Clear();
             Writer.WriteLine("\nTRAINING 1: Structs and Enums\n");
+
             try
             {
                 StructsTask();
@@ -76,7 +77,6 @@ namespace Epam.TrainingRunners
         private void ReadPerson(out Person person)
         {
             string firstName, lastName;
-            int age;
 
             Writer.Write(" Enter your first name: ");
             firstName = Reader.ReadLine();
@@ -85,7 +85,7 @@ namespace Epam.TrainingRunners
             lastName = Reader.ReadLine();
 
             Writer.Write(" Enter your age: ");
-            if (!int.TryParse(Reader.ReadLine(), out age))
+            if (!int.TryParse(Reader.ReadLine(), out int age))
             {
                 throw new ArgumentException("Age must be an integer type.");
             }

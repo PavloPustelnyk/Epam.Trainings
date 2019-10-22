@@ -1,5 +1,6 @@
 ﻿using System;
-using Epam.Loggers;
+using Epam.Logger;
+
 
 namespace Epam.TrainingRunners
 {

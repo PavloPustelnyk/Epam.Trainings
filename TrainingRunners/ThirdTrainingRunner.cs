@@ -6,7 +6,7 @@ using Epam.Writers;
 using Epam.Training_3.Task_1;
 using Epam.Training_3.Task_2;
 using System.IO;
-using Epam.Loggers;
+using Epam.Logger;
 
 namespace Epam.TrainingRunners
 {
@@ -16,40 +16,20 @@ namespace Epam.TrainingRunners
         public IReader Reader { get; set; }
         public ILogger Logger { get; set; }
 
-        public ThirdTrainingRunner()
-        {
-            try
-            {
-                Logger = new FileLogger("TrainingLog.txt");
-            }
-            catch
-            {
-                Logger = null;
-                if(System.Diagnostics.Debugger.IsAttached)
-                {
-                    throw new ArgumentException("Wrong log file name.");
-                }
-            }
-        }
-
         public void Run()
         {
             Writer.Clear();
             Writer.WriteLine("\nTRAINING 3: I/O Operations\n");
 
-            Logger?.LogMessage("Training 3 (I/O) started.");
-
             DirectoryTask();
             FileSearchTask();
 
-            Logger?.LogMessage("Training 3 (I/O) completed.");
             Writer.WriteLine("\nPress any key to continue...");
             Reader.ReadLine();
         }
 
         private void FileSearchTask()
         {
-            Logger?.LogMessage("Task 2 (File search) started.");
             Writer.WriteLine("\nTask 2: Search File");
 
             Writer.Write("\n Enter file name pattern: ");
@@ -83,7 +63,6 @@ namespace Epam.TrainingRunners
                     Writer.WriteLine($"File: {file}");
                 }
 
-                Logger?.LogMessage("Task 2 (File search) completed.");
             }
             catch (ArgumentException exc)
             {
@@ -99,7 +78,6 @@ namespace Epam.TrainingRunners
 
         private void DirectoryTask()
         {
-            Logger?.LogMessage("Task 1 (Directories) started.");
             Writer.WriteLine("\nTask 1: Directory Visualizer");
             Writer.Write("\n Enter directory path: ");
             string path = Reader.ReadLine();
@@ -117,8 +95,6 @@ namespace Epam.TrainingRunners
                     Writer = this.Writer
                 };
                 directoryVisualizer.DisplayFilesAndSubdirectories(path);
-
-                Logger?.LogMessage("Task 1 (Directories) completed.");
             }
             catch(ArgumentException exc)
             {

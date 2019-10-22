@@ -4,7 +4,7 @@ using System.Text;
 using Epam.Training_2;
 using Epam.Readers;
 using Epam.Writers;
-using Epam.Loggers;
+using Epam.Logger;
 
 namespace Epam.TrainingRunners
 {
@@ -41,13 +41,14 @@ namespace Epam.TrainingRunners
             {
                 Writer.WriteLine(exc.Message);
                 Writer.Write("Change parameter A.");
-                
+                Logger?.LogMessage($"Error in Task 3 (Argument Exception): {exc.Message}");
             }
             catch (ArgumentException exc)
             when (exc.ParamName == "b")
             {
                 Writer.WriteLine(exc.Message);
                 Writer.Write("Change parameter B.");
+                Logger?.LogMessage($"Error in Task 3 (Argument Exception): {exc.Message}");
             }
         }
 
@@ -61,6 +62,7 @@ namespace Epam.TrainingRunners
             catch (IndexOutOfRangeException exc)
             {
                 Writer.WriteLine(exc.Message);
+                Logger?.LogMessage($"Error in Task 2 (Index Out Of Range Exception): {exc.Message}");
             }
         }
 
@@ -78,6 +80,7 @@ namespace Epam.TrainingRunners
             catch (StackOverflowException exc)
             {
                 Writer.WriteLine(exc.Message);
+                Logger?.LogMessage($"Error in Task 1 (Stack Overflow Exception): {exc.Message}");
             }
         }
 
