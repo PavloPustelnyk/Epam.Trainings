@@ -14,19 +14,7 @@ namespace Epam.Trainings
     {
         static void Main(string[] args)
         {
-            var configuration = new ConfigurationBuilder()
-                    .AddJsonFile("appsettings.json", true, true)
-                    .Build();
-
-            string logFile = configuration["DefaultLogFileName"];
-
-            LoggerFactory logFactory = new LoggerFactory();
-            LoggerConfigurator loggerConfigurator = new LoggerConfigurator();
-            if (!string.IsNullOrEmpty(logFile))
-            {
-                loggerConfigurator.AddWriter(new FileWriter(logFile));
-            }
-            var logger = logFactory.GetLogger(loggerConfigurator);
+            var logger = GetLogger();
 
             try
             {
@@ -49,17 +37,42 @@ namespace Epam.Trainings
                         Writer = new ConsoleWriter(),
                         Reader = new ConsoleReader(),
                         Logger = logger
+                    },
+                    new FourthTrainingRunner
+                    {
+                        Writer = new ConsoleWriter(),
+                        Reader = new ConsoleReader(),
+                        Logger = logger
                     }
                 };
 
                 runners.ForEach(r => r.Run());
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
                 Console.WriteLine($"\n\n{exc.Message}");
                 logger.LogMessage(exc.Message);
             }
             Console.ReadLine();
+        }
+
+        private static Logger.ILogger GetLogger()
+        {
+            var configuration = new ConfigurationBuilder()
+                                .AddJsonFile("appsettings.json", true, true)
+                                .Build();
+
+            string logFile = configuration["DefaultLogFileName"];
+
+            LoggerFactory logFactory = new LoggerFactory();
+            LoggerConfigurator loggerConfigurator = new LoggerConfigurator();
+            if (!string.IsNullOrEmpty(logFile))
+            {
+                loggerConfigurator.AddWriter(new FileWriter(logFile));
+            }
+
+            var logger = logFactory.GetLogger(loggerConfigurator);
+            return logger;
         }
     }
 }
