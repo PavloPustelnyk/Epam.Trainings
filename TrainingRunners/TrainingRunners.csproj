@@ -11,6 +11,7 @@
     <ProjectReference Include="..\Training_1\Training_1.csproj" />
     <ProjectReference Include="..\Training_2\Training_2.csproj" />
     <ProjectReference Include="..\Training_3\Training_3.csproj" />
+    <ProjectReference Include="..\Training_4\Training_4.csproj" />
   </ItemGroup>
 
 </Project>
