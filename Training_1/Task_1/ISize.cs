@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Epam.Training_1.Task_1
+namespace Epam.Trainings.Training_1.Task_1
 {
     public interface ISize
     {

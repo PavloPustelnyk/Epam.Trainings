@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Epam.Training_3.Task_2
+namespace Epam.Trainings.Training_3.Task_2
 {
     public class FileSearcher
     {

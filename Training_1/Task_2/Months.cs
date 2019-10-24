@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Epam.Training_1.Task_2
+namespace Epam.Trainings.Training_1.Task_2
 {
     public enum Months
     {

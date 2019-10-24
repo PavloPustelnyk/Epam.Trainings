@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Epam.Writers
+namespace Epam.Trainings.Writers
 {
     public interface IWriter
     {

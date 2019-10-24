@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Epam.Training_2
+namespace Epam.Trainings.Training_2
 {
     public static class ExceptionTests
     {

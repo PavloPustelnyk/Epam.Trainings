@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using Epam.Writers;
+using Epam.Trainings.Writers;
 
-namespace Epam.Training_3.Task_1
+namespace Epam.Trainings.Training_3.Task_1
 {
     public class DirectoryVisualizer
     {

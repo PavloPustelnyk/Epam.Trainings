@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Epam.TrainingRunners;
-using Epam.Readers;
-using Epam.Writers;
-using Epam.Logger;
-using Epam.Logger.Configurators;
+using Epam.Trainings.TrainingRunners;
+using Epam.Trainings.Readers;
+using Epam.Trainings.Writers;
+using Epam.Trainings.Logger;
+using Epam.Trainings.Logger.Configurators;
 using Microsoft.Extensions.Configuration;
 using NLog;
 

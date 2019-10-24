@@ -1,8 +1,8 @@
 ﻿using System;
-using Epam.Logger;
+using Epam.Trainings.Logger;
 
 
-namespace Epam.TrainingRunners
+namespace Epam.Trainings.TrainingRunners
 {
     public interface ITrainingRunner
     {

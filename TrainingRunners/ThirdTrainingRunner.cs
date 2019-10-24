@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Epam.Readers;
-using Epam.Writers;
-using Epam.Training_3.Task_1;
-using Epam.Training_3.Task_2;
+using Epam.Trainings.Readers;
+using Epam.Trainings.Writers;
+using Epam.Trainings.Training_3.Task_1;
+using Epam.Trainings.Training_3.Task_2;
 using System.IO;
-using Epam.Logger;
+using Epam.Trainings.Logger;
 
-namespace Epam.TrainingRunners
+namespace Epam.Trainings.TrainingRunners
 {
     public class ThirdTrainingRunner : ITrainingRunner
     {

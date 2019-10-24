@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Epam.Readers
+namespace Epam.Trainings.Readers
 {
     public interface IReader
     {

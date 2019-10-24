@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Epam.Logger.Configurators;
+using Epam.Trainings.Logger.Configurators;
 
-namespace Epam.Logger
+namespace Epam.Trainings.Logger
 {
     public class Logger : ILogger
     {

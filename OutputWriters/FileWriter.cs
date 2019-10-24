@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Epam.Writers
+namespace Epam.Trainings.Writers
 {
     public class FileWriter : IWriter
     {
