@@ -10,6 +10,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.0.0" />
     <PackageReference Include="NLog" Version="4.6.7" />
     <PackageReference Include="NLog.Config" Version="4.6.7" />
+    <PackageReference Include="Syncfusion.XlsIO.Net.Core" Version="17.3.0.21" />
   </ItemGroup>
 
   <ItemGroup>
