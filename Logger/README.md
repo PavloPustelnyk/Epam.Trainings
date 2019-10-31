@@ -7,4 +7,4 @@ Code library for custom Logger.
 4. **Logger** - implementation of ILogger, has ILoggerConfigurator property.
 5. **LoggerFactory** - class to create ILogger instance with ILoggerConfigurator configuration.
 
-[Main page](https://github.com/PavloPustelnyk/Epam.Trainings)
+* [Main page](https://github.com/PavloPustelnyk/Epam.Trainings)
