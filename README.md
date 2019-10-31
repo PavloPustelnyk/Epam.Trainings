@@ -1,5 +1,5 @@
-# Project Title
-Epam.Training solution contains projects for all trainings with runners, custom logger, writers and readers.
+# Epam.Trainings
+Epam.Trainings solution contains projects for all trainings with runners, custom logger, writers and readers.
 
 ## Projects
 * [Epam.Trainings](https://github.com/PavloPustelnyk/Epam.Trainings/blob/master/Epam.Trainings) - Main console project.
