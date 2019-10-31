@@ -10,7 +10,7 @@ namespace Epam.Trainings.Training_3.Task_1
 
         public void DisplayFilesAndSubdirectories(string path, int pad = 0)
         {
-            if(String.IsNullOrEmpty(path))
+            if(string.IsNullOrEmpty(path))
             {
                 throw new ArgumentException("Path cannot be empty.");
             }

@@ -9,16 +9,16 @@ namespace Epam.Trainings.Training_3.Task_2
     {
         public IEnumerable<string> FindFileByPattern(string pattern, bool shouldSearchInSubdirs = false, string directory = "")
         {
-            if (String.IsNullOrEmpty(pattern))
+            if (string.IsNullOrEmpty(pattern))
             {
                 throw new ArgumentException("Search pattern cannot be empty.");
             }
 
-            if(!String.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+            if(!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
             {
                 throw new ArgumentException("Wrong directory.");
             }
-            else if(String.IsNullOrEmpty(directory))
+            else if(string.IsNullOrEmpty(directory))
             {
                 directory = Directory.GetCurrentDirectory();
             }
