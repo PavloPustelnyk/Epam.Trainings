@@ -1,51 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using Epam.Trainings.TrainingRunners;
-using Epam.Trainings.Readers;
-using Epam.Trainings.Writers;
-using Epam.Trainings.Logger;
-using Epam.Trainings.Logger.Configurators;
-using Microsoft.Extensions.Configuration;
-using NLog;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="Program.cs" company="Epam">
+//     Copyright (c) Epam. All rights reserved.
+// </copyright>
+// <author>Pavlo Pustelnyk</author>
+//-----------------------------------------------------------------------
 namespace Epam.Trainings
 {
-    static class Program
+    using System;
+    using System.Collections.Generic;
+    using Epam.Trainings.Logger;
+    using Epam.Trainings.Logger.Configurators;
+    using Epam.Trainings.Readers;
+    using Epam.Trainings.TrainingRunners;
+    using Epam.Trainings.Writers;
+    using Microsoft.Extensions.Configuration;
+
+    /// <summary>
+    /// The main Program class
+    /// </summary>
+    public static class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// Main method that executes all training runners.
+        /// </summary>
+        /// <param name="args">Console Arguments</param>
+        public static void Main(string[] args)
         {
             var logger = GetLogger();
-
             try
             {
-                var runners = new List<ITrainingRunner>
-                {
-                    new FirstTrainingRunner
-                    {
-                        Writer = new ConsoleWriter(),
-                        Reader = new ConsoleReader(),
-                        Logger = logger
-                    },
-                    new SecondTrainingRunner
-                    {
-                        Writer = new ConsoleWriter(),
-                        Reader = new ConsoleReader(),
-                        Logger = logger
-                    },
-                    new ThirdTrainingRunner
-                    {
-                        Writer = new ConsoleWriter(),
-                        Reader = new ConsoleReader(),
-                        Logger = logger
-                    },
-                    new FourthTrainingRunner
-                    {
-                        Writer = new ConsoleWriter(),
-                        Reader = new ConsoleReader(),
-                        Logger = logger
-                    }
-                };
-
+                var runners = ReflectionScanner.Scan<ITrainingRunner>();
+                InitializeRunners(runners, logger);
                 runners.ForEach(r => r.Run());
             }
             catch (Exception exc)
@@ -53,9 +38,29 @@ namespace Epam.Trainings
                 Console.WriteLine($"\n\n{exc.Message}");
                 logger.LogMessage(exc.Message);
             }
+
             Console.ReadLine();
         }
 
+        /// <summary>
+        /// Initializes all training runners with Writer, Reader and Logger.
+        /// </summary>
+        /// <param name="runners">List of training runners</param>
+        /// <param name="logger">Logger object</param>
+        private static void InitializeRunners(List<ITrainingRunner> runners, Logger.ILogger logger)
+        {
+            foreach (var runner in runners)
+            {
+                runner.Writer = new ConsoleWriter();
+                runner.Reader = new ConsoleReader();
+                runner.Logger = logger;
+            }
+        }
+
+        /// <summary>
+        /// Creates new Logger.
+        /// </summary>
+        /// <returns>ILogger object</returns>
         private static Logger.ILogger GetLogger()
         {
             var configuration = new ConfigurationBuilder()
