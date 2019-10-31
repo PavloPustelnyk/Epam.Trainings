@@ -1,56 +1,82 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Epam.Trainings.Readers;
-using Epam.Trainings.Writers;
-using Epam.Trainings.Training_3.Task_1;
-using Epam.Trainings.Training_3.Task_2;
-using System.IO;
-using Epam.Trainings.Logger;
-
+﻿//-----------------------------------------------------------------------
+// <copyright file="ThirdTrainingRunner.cs" company="Epam">
+//     Copyright (c) Epam. All rights reserved.
+// </copyright>
+// <author>Pavlo Pustelnyk</author>
+//-----------------------------------------------------------------------
 namespace Epam.Trainings.TrainingRunners
 {
+    using System;
+    using System.IO;
+    using Epam.Trainings.Logger;
+    using Epam.Trainings.Readers;
+    using Epam.Trainings.Training_3.Task_1;
+    using Epam.Trainings.Training_3.Task_2;
+    using Epam.Trainings.Writers;
+
+    /// <summary>
+    /// Runner class for Training_3 project
+    /// </summary>
     public class ThirdTrainingRunner : ITrainingRunner
     {
+        /// <summary>
+        /// Gets or sets Writer, that implements IWriter
+        /// </summary>
         public IWriter Writer { get; set; }
+
+        /// <summary>
+        /// Gets or sets Reader, that implements IReader
+        /// </summary>
         public IReader Reader { get; set; }
+
+        /// <summary>
+        /// Gets or sets Logger, that implements ILogger
+        /// </summary>
         public ILogger Logger { get; set; }
 
+        /// <summary>
+        /// Main method for ITrainingRunner to run all training tasks
+        /// </summary>
         public void Run()
         {
-            Writer.Clear();
-            Writer.WriteLine("\nTRAINING 3: I/O Operations\n");
+            this.Writer.Clear();
+            this.Writer.WriteLine("\nTRAINING 3: I/O Operations\n");
 
-            DirectoryTask();
-            FileSearchTask();
+            this.DirectoryTask();
+            this.FileSearchTask();
 
-            Writer.WriteLine("\nPress any key to continue...");
-            Reader.ReadLine();
+            this.Writer.WriteLine("\nPress any key to continue...");
+            this.Reader.ReadLine();
         }
 
+        #region Tasks
+        /// <summary>
+        /// Method to perform second task of training.
+        /// Searches files by specified directory and search pattern.
+        /// </summary>
         private void FileSearchTask()
         {
-            Writer.WriteLine("\nTask 2: Search File");
+            this.Writer.WriteLine("\nTask 2: Search File");
 
-            Writer.Write("\n Enter file name pattern: ");
-            string pattern = Reader.ReadLine();
+            this.Writer.Write("\n Enter file name pattern: ");
+            string pattern = this.Reader.ReadLine();
 
-            Writer.Write("\n Enter directory to search " +
+            this.Writer.Write("\n Enter directory to search " +
                 "(empty string - current directory): ");
-            string directory = Reader.ReadLine();
+            string directory = this.Reader.ReadLine();
 
-            Writer.Write("\n Search in subdirectories? (y/else): ");
-            string shouldSearchInSubdirs = Reader.ReadLine();
+            this.Writer.Write("\n Search in subdirectories? (y/else): ");
+            string shouldSearchInSubdirs = this.Reader.ReadLine();
             bool shouldSubdirs = false;
 
-            if(shouldSearchInSubdirs == "y")
+            if (shouldSearchInSubdirs == "y")
             {
                 shouldSubdirs = true;
             }
 
-            if (String.IsNullOrEmpty(pattern))
+            if (string.IsNullOrEmpty(pattern))
             {
-                Writer.WriteLine(" Error: Path cannot be empty.");
+                this.Writer.WriteLine(" Error: Path cannot be empty.");
                 return;
             }
 
@@ -58,33 +84,36 @@ namespace Epam.Trainings.TrainingRunners
             {
                 FileSearcher fileSearcher = new FileSearcher();
                 var files = fileSearcher.FindFileByPattern(pattern, shouldSubdirs, directory);
-                foreach(var file in files)
+                foreach (var file in files)
                 {
-                    Writer.WriteLine($"File: {file}");
+                    this.Writer.WriteLine($"File: {file}");
                 }
-
             }
-            catch (ArgumentException exc)
+            catch (ArgumentException e)
             {
-                Writer.WriteLine(" Error: " + exc.Message);
-                Logger?.LogMessage($"Error in Task 2 (File search): {exc.Message}");
+                this.Writer.WriteLine(e.Message);
+                this.Logger.LogMessage($"Class - ThirdTrainingRunner | Method - FileSearchTask | {e.Message}");
             }
-            catch (DirectoryNotFoundException exc)
+            catch (DirectoryNotFoundException e)
             {
-                Writer.WriteLine(" Error: " + exc.Message);
-                Logger?.LogMessage($"Error in Task 2 (File search): {exc.Message}");
+                this.Writer.WriteLine(e.Message);
+                this.Logger.LogMessage($"Class - ThirdTrainingRunner | Method - FileSearchTask | {e.Message}");
             }
         }
 
+        /// <summary>
+        /// Method to perform first task of training.
+        /// Prints all files and subdirectories in specified directory.
+        /// </summary>
         private void DirectoryTask()
         {
-            Writer.WriteLine("\nTask 1: Directory Visualizer");
-            Writer.Write("\n Enter directory path: ");
-            string path = Reader.ReadLine();
+            this.Writer.WriteLine("\nTask 1: Directory Visualizer");
+            this.Writer.Write("\n Enter directory path: ");
+            string path = this.Reader.ReadLine();
 
-            if(String.IsNullOrEmpty(path))
+            if (string.IsNullOrEmpty(path))
             {
-                Writer.WriteLine(" Error: Path cannot be empty.");
+                this.Writer.WriteLine(" Error: Path cannot be empty.");
                 return;
             }
 
@@ -96,11 +125,12 @@ namespace Epam.Trainings.TrainingRunners
                 };
                 directoryVisualizer.DisplayFilesAndSubdirectories(path);
             }
-            catch(ArgumentException exc)
+            catch (ArgumentException e)
             {
-                Writer.WriteLine(" Error: " + exc.Message);
-                Logger?.LogMessage($"Error in Task 1 (Directories): {exc.Message}");
+                this.Writer.WriteLine(e.Message);
+                this.Logger.LogMessage($"Class - ThirdTrainingRunner | Method - DirectoryTask | {e.Message}");
             }
         }
+        #endregion
     }
 }
