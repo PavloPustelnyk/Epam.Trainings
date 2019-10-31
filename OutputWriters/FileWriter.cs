@@ -39,7 +39,7 @@ namespace Epam.Trainings.Writers
         {
             using (StreamWriter log = File.CreateText(FullFileName))
             {
-                log.Write(String.Empty);
+                log.Write(string.Empty);
             }
         }
 
