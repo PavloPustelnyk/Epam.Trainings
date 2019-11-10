@@ -29,6 +29,7 @@ namespace Epam.Trainings
             var logger = GetLogger();
             try
             {
+
                 var runners = ReflectionScanner.Scan<ITrainingRunner>();
                 InitializeRunners(runners, logger);
                 runners.ForEach(r => r.Run());
