@@ -60,7 +60,7 @@ namespace Epam.Trainings
                     result.Add(newInstance);
                 }
             }
-
+            result.Sort((x, y) => x.GetType().Name.CompareTo(y.GetType().Name));
             return result;
         }
     }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.757
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29503.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epam.Trainings", "Epam.Trainings\Epam.Trainings.csproj", "{54D6B8CE-C3B1-414A-884F-C7BD6ECA7817}"
 EndProject
@@ -25,7 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Training_5", "Training_5\Tr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Training_6", "Training_6\Training_6.csproj", "{3D104736-F538-4657-97A9-40E8D080933A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Training_7", "Training_7\Training_7.csproj", "{01C0235D-FA75-499B-AF1B-46B31AEC7973}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Training_7", "Training_7\Training_7.csproj", "{01C0235D-FA75-499B-AF1B-46B31AEC7973}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoCContainer", "IoCContainer\IoCContainer.csproj", "{B6403C82-166A-41B2-A667-5A067143190B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Epam.Training.Tests", "Epam.Training.Tests\Epam.Training.Tests.csproj", "{ABF1C1E9-DD7D-4847-AB84-84E77C250F36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +85,14 @@ Global
 		{01C0235D-FA75-499B-AF1B-46B31AEC7973}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01C0235D-FA75-499B-AF1B-46B31AEC7973}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01C0235D-FA75-499B-AF1B-46B31AEC7973}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6403C82-166A-41B2-A667-5A067143190B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6403C82-166A-41B2-A667-5A067143190B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6403C82-166A-41B2-A667-5A067143190B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6403C82-166A-41B2-A667-5A067143190B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABF1C1E9-DD7D-4847-AB84-84E77C250F36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABF1C1E9-DD7D-4847-AB84-84E77C250F36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABF1C1E9-DD7D-4847-AB84-84E77C250F36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABF1C1E9-DD7D-4847-AB84-84E77C250F36}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
