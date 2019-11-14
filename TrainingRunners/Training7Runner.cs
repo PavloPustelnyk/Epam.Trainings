@@ -18,7 +18,7 @@ namespace Epam.Trainings.TrainingRunners
     /// <summary>
     /// Runner class for Training_7 project.
     /// </summary>
-    public class SeventhTrainingRunner : ITrainingRunner
+    public class Training7Runner : ITrainingRunner
     {
         /// <summary>
         /// DirectoryInfo about first directory to search files.
@@ -31,10 +31,10 @@ namespace Epam.Trainings.TrainingRunners
         private readonly DirectoryInfo secondDirectory;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SeventhTrainingRunner" /> class.
+        /// Initializes a new instance of the <see cref="Training7Runner" /> class.
         /// Creates configuration object to setting file.
         /// </summary>
-        public SeventhTrainingRunner()
+        public Training7Runner()
         {
             this.Configuration = new ConfigurationBuilder()
                                 .AddJsonFile("appsettings.Runners.json", true, true)

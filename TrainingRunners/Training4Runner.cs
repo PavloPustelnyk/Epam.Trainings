@@ -16,7 +16,7 @@ namespace Epam.Trainings.TrainingRunners
     /// <summary>
     /// Runner class for Training_4 project
     /// </summary>
-    public class FourthTrainingRunner : ITrainingRunner
+    public class Training4Runner : ITrainingRunner
     {
         /// <summary>
         /// Gets or sets Writer, that implements IWriter
