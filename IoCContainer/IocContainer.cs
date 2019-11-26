@@ -15,6 +15,12 @@ namespace Epam.Trainings.IoCContainer
             AddSingleton(typeof(TSource), typeof(TDestination));
         }
 
+        public void AddSingleton<TSource, TDestination>(TDestination destinationInstance)
+        {
+            AddSingleton(typeof(TSource), typeof(TDestination));
+            _services[typeof(TSource)].Implementation = destinationInstance;
+        }
+
         public void AddTransient<TSource, TDestination>()
         {
             AddTransient(typeof(TSource), typeof(TDestination));
