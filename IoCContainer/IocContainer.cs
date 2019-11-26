@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
+using System.Linq;
 
 namespace Epam.Trainings.IoCContainer
 {
@@ -11,80 +12,93 @@ namespace Epam.Trainings.IoCContainer
 
         public void AddSingleton<TSource, TDestination>()
         {
-            ServiceDescriptor descriptor = new ServiceDescriptor(
-                typeof(TDestination),
-                ServiceLifetime.Singleton,
-                CreateInstance(typeof(TDestination)));
-
-            _services[typeof(TSource)] =  descriptor;
-        }
-
-        public void AddSingleton<TSource, TDestination>(TDestination destination)
-        {
-            ServiceDescriptor descriptor = new ServiceDescriptor(
-                typeof(TDestination),
-                ServiceLifetime.Singleton,
-                destination);
-
-            _services[typeof(TSource)] = descriptor;
+            AddSingleton(typeof(TSource), typeof(TDestination));
         }
 
         public void AddTransient<TSource, TDestination>()
         {
-            ServiceDescriptor descriptor = new ServiceDescriptor(
-                    typeof(TDestination),
-                    ServiceLifetime.Singleton);
-
-            _services[typeof(TSource)] = descriptor;
+            AddTransient(typeof(TSource), typeof(TDestination));
         }
 
-        public object GetService<TSource>()
+        public void AddSingleton(Type sourceType, Type destinationType)
         {
-            if(_services.ContainsKey(typeof(TSource)) && _services[typeof(TSource)].Implementation == null)
-            {
-                return CreateInstance(_services[typeof(TSource)].ServiceType);
-            }
-            else if(_services.ContainsKey(typeof(TSource)))
-            {
-                return _services[typeof(TSource)].Implementation;
-            }
+            ServiceDescriptor descriptor = new ServiceDescriptor(
+                destinationType,
+                ServiceLifetime.Singleton);
 
-            throw new ArgumentNullException("TSource", $"Service type {typeof(TSource).FullName} is not registered.");
+            _services[sourceType] = descriptor;
+        }
+
+        public void AddTransient(Type sourceType, Type destinationType)
+        {
+            ServiceDescriptor descriptor = new ServiceDescriptor(
+                    destinationType,
+                    ServiceLifetime.Transient);
+
+            _services[sourceType] = descriptor;
+        }
+
+        public TSource Resolve<TSource>()
+        {
+            return (TSource)Resolve(typeof(TSource));
+        }
+
+        public object Resolve(Type sourceType)
+        {
+            if (_services.ContainsKey(sourceType))
+            {
+                return GetServiceInstance(sourceType, _services[sourceType].ServiceType);
+            }
+            else if (sourceType.IsGenericType &&
+                _services.ContainsKey(sourceType.GetGenericTypeDefinition()))
+            {
+                var destination = _services[sourceType.GetGenericTypeDefinition()].ServiceType;
+                var closedDestination = destination.MakeGenericType(sourceType.GetGenericArguments());
+
+                return GetServiceInstance(sourceType.GetGenericTypeDefinition(), closedDestination);
+            }
+            else if(!sourceType.IsAbstract)
+            {
+                return CreateInstance(sourceType);
+            }
+            throw new ArgumentNullException("TSource", $"Service type {sourceType.FullName} is not registered.");
+        }
+
+        private object GetServiceInstance(Type sourceType, Type destinationType)
+        {
+            var service = _services[sourceType];
+            if (service.Lifetime == ServiceLifetime.Singleton)
+            {
+                if (service.Implementation == null)
+                {
+                    service.Implementation = CreateInstance(destinationType);
+                }
+
+                return service.Implementation;
+            }
+            else 
+            {
+                return CreateInstance(destinationType);
+            }
         }
 
         private object CreateInstance(Type type)
         {
-            if (_services.ContainsKey(type) && _services[type].Implementation != null)
+            var constructors = type.GetConstructors();
+            if(constructors.Count() == 0)
             {
-                MethodInfo method = typeof(IocContainer).GetMethod("GetService");
-                method = method.MakeGenericMethod(type);
-                return method.Invoke(this, null);
+                return Activator.CreateInstance(type);
             }
-            else
-            {
-                if (type.GetConstructors().Length == 0)
-                {
-                    return Activator.CreateInstance(type);
-                }
-                ConstructorInfo constructor = type.GetConstructors()[0];
-                ParameterInfo[] constructorParameters = constructor.GetParameters();
-                if (constructorParameters.Length == 0)
-                {
-                    return Activator.CreateInstance(type);
-                }
-                List<object> parameters = new List<object>(constructorParameters.Length);
-                foreach (ParameterInfo parameterInfo in constructorParameters)
-                {
-                    if(parameterInfo.GetType().IsInterface && 
-                        !_services.ContainsKey(parameterInfo.GetType()))
-                    {
-                        throw new ArgumentNullException("Type", 
-                            $"Service type {parameterInfo.ParameterType.Name} is not registered.");
-                    }
-                    parameters.Add(CreateInstance(parameterInfo.ParameterType));
-                }
-                return constructor.Invoke(parameters.ToArray());
-            }
+
+            var parameters = type.GetConstructors()
+                                 .OrderByDescending(c => c.GetParameters().Count())
+                                 .First()
+                                 .GetParameters()
+                                 .Select(p => Resolve(p.ParameterType))
+                                 .ToArray();
+
+            return Activator.CreateInstance(type, parameters);
+
         }
     }
 }
