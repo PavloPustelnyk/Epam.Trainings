@@ -6,6 +6,7 @@
 //-----------------------------------------------------------------------
 namespace Epam.Trainings
 {
+    using Epam.Trainings.IoCContainer;
     using Epam.Trainings.Logger;
     using Epam.Trainings.Logger.Configurators;
     using Epam.Trainings.Readers;
@@ -20,16 +21,20 @@ namespace Epam.Trainings
     /// </summary>
     public class MainProgramRunner
     {
+        private readonly IocContainer container = new IocContainer();
+
         /// <summary>
         /// Run method that executes all training runners.
         /// </summary>
         public void Run()
         {
-            var logger = GetLogger();
+            ConfigureServices();
+            var logger = container.Resolve<ILogger>();
+
             try
             {
                 var runners = ReflectionScanner.Scan<ITrainingRunner>();
-                InitializeRunners(runners, logger);
+                InitializeRunners(runners);
                 runners.ForEach(r => r.Run());
             }
             catch (Exception exc)
@@ -41,18 +46,25 @@ namespace Epam.Trainings
             Console.ReadLine();
         }
 
+        private void ConfigureServices()
+        {
+            container.AddTransient<IWriter, ConsoleWriter>();
+            container.AddTransient<IReader, ConsoleReader>();
+            container.AddSingleton<ILogger, Logger.Logger>((Logger.Logger)GetLogger());
+        }
+
         /// <summary>
         /// Initializes all training runners with Writer, Reader and Logger.
         /// </summary>
         /// <param name="runners">List of training runners</param>
         /// <param name="logger">Logger object</param>
-        private static void InitializeRunners(List<ITrainingRunner> runners, Logger.ILogger logger)
+        private void InitializeRunners(List<ITrainingRunner> runners)
         {
             foreach (var runner in runners)
             {
-                runner.Writer = new ConsoleWriter();
-                runner.Reader = new ConsoleReader();
-                runner.Logger = logger;
+                runner.Writer = container.Resolve<IWriter>();
+                runner.Reader = container.Resolve<IReader>();
+                runner.Logger = container.Resolve<ILogger>();
             }
         }
 
@@ -60,7 +72,7 @@ namespace Epam.Trainings
         /// Creates new Logger.
         /// </summary>
         /// <returns>ILogger object</returns>
-        private static Logger.ILogger GetLogger()
+        private Logger.ILogger GetLogger()
         {
             var configuration = new ConfigurationBuilder()
                                 .AddJsonFile("appsettings.json", true, true)
