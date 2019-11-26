@@ -15,11 +15,5 @@ namespace Epam.Trainings.IoCContainer
             Implementation = null;
         }
 
-        public ServiceDescriptor(Type type, ServiceLifetime lifetime, object implementation)
-        {
-            ServiceType = type;
-            Lifetime = lifetime;
-            Implementation = implementation;
-        }
     }
 }
