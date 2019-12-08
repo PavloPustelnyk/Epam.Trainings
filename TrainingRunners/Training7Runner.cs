@@ -120,17 +120,21 @@ namespace Epam.Trainings.TrainingRunners
                     throw new ArgumentException($"Wrong start lines in {Configuration.GetType().Name} configuration.");
                 }
 
-                var files = searcher.GetUniqueColumnsBetweenLists(
-                    this.Configuration["var1Input"],
-                    this.Configuration["list1Column"], 
-                    firstListStartLine,
-                    this.Configuration["list2Column"], 
-                    secondListStartLine);
+                ExcelSearchOptions options = new ExcelSearchOptions
+                {
+                    FullExcelFileName = this.Configuration["var1Input"],
+                    FirstListColumn = this.Configuration["list1Column"],
+                    FirstListStartLine = firstListStartLine,
+                    SecondListColumn = this.Configuration["list2Column"],
+                    SecondListStartLine = secondListStartLine
+                };
+
+                var items = searcher.GetUniqueColumnsBetweenLists(options);
 
                 watch.Stop();
                 this.Writer.WriteLine($"Time of searching: {watch.ElapsedMilliseconds:N}");
 
-                OutputList(files, "Var 1 Task 2: Unique Items in Excel lists", "var1task2Result");
+                OutputList(items, "Var 1 Task 2: Unique Items in Excel lists", "var1task2Result");
             }
             catch (ArgumentException e)
             {
@@ -160,17 +164,21 @@ namespace Epam.Trainings.TrainingRunners
                     throw new ArgumentException($"Wrong start lines in {Configuration.GetType().Name} configuration.");
                 }
 
-                var files = searcher.GetDuplicateColumnsBetweenLists(
-                    this.Configuration["var1Input"],
-                    this.Configuration["list1Column"],
-                    firstListStartLine,
-                    this.Configuration["list2Column"],
-                    secondListStartLine);
+                ExcelSearchOptions options = new ExcelSearchOptions
+                {
+                    FullExcelFileName = this.Configuration["var1Input"],
+                    FirstListColumn = this.Configuration["list1Column"],
+                    FirstListStartLine = firstListStartLine,
+                    SecondListColumn = this.Configuration["list2Column"],
+                    SecondListStartLine = secondListStartLine
+                };
+
+                var items = searcher.GetDuplicateColumnsBetweenLists(options);
 
                 watch.Stop();
                 this.Writer.WriteLine($"Time of searching: {watch.ElapsedMilliseconds:N}");
 
-                OutputList(files, "Var 1 Task 1: Duplicate Items in Excel lists", "var1task1Result");
+                OutputList(items, "Var 1 Task 1: Duplicate Items in Excel lists", "var1task1Result");
             }
             catch (ArgumentException e)
             {

@@ -21,20 +21,11 @@ namespace Epam.Trainings.Training_7
         /// Find all unique values between two lists in Excel file.
         /// Considers all values from specified start line to first empty cell.
         /// </summary>
-        /// <param name="fullExcelFileName">Full name of Excel file</param>
-        /// <param name="firstListColumn">Column of first list in Excel file</param>
-        /// <param name="firstListStartLine">Start line of first list in Excel file</param>
-        /// <param name="secondListColumn">Column of second list in Excel file</param>
-        /// <param name="secondListStartLine">Start line of second list in Excel file</param>
+        /// <param name="options">Instance of ExcelSearchOptions with specified file, lines and columns</param>
         /// <returns>List of unique values between two lists in Excel file</returns>
-        public List<string> GetUniqueColumnsBetweenLists(
-            string fullExcelFileName, 
-            string firstListColumn, 
-            int firstListStartLine, 
-            string secondListColumn, 
-            int secondListStartLine)
+        public List<string> GetUniqueColumnsBetweenLists(ExcelSearchOptions options)
         {
-            if (string.IsNullOrEmpty(fullExcelFileName))
+            if (string.IsNullOrEmpty(options.FullExcelFileName))
             {
                 throw new ArgumentException("Excel file name cannot be empty.");
             }
@@ -46,7 +37,7 @@ namespace Epam.Trainings.Training_7
                 application.DefaultVersion = ExcelVersion.Excel2013;
                 IWorkbook workbook;
 
-                using (FileStream fs = new FileStream(fullExcelFileName, FileMode.Open))
+                using (FileStream fs = new FileStream(options.FullExcelFileName, FileMode.Open))
                 {
                     workbook = excelEngine.Excel.Workbooks.Open(fs);
                 }
@@ -62,12 +53,12 @@ namespace Epam.Trainings.Training_7
 
                 List<string> firstList = this.GetItemsFromRange(
                     worksheet, 
-                    firstListColumn, 
-                    firstListStartLine);
+                    options.FirstListColumn, 
+                    options.FirstListStartLine);
                 List<string> secondList = this.GetItemsFromRange(
                     worksheet, 
-                    secondListColumn,
-                    secondListStartLine);
+                    options.SecondListColumn,
+                    options.SecondListStartLine);
 
                 result = firstList.Except(secondList).Union(secondList.Except(firstList)).ToList();
             }
@@ -79,20 +70,11 @@ namespace Epam.Trainings.Training_7
         /// Find all duplicate values between two lists in Excel file.
         /// Considers all values from specified start line to first empty cell.
         /// </summary>
-        /// <param name="fullExcelFileName">Full name of Excel file</param>
-        /// <param name="firstListColumn">Column of first list in Excel file</param>
-        /// <param name="firstListStartLine">Start line of first list in Excel file</param>
-        /// <param name="secondListColumn">Column of second list in Excel file</param>
-        /// <param name="secondListStartLine">Start line of second list in Excel file</param>
+        /// <param name="fullExcelFileName">Instance of ExcelSearchOptions with specified file, lines and columns</param>
         /// <returns>List of duplicate values between two lists in Excel file</returns>
-        public List<string> GetDuplicateColumnsBetweenLists(
-            string fullExcelFileName,
-            string firstListColumn,
-            int firstListStartLine,
-            string secondListColumn,
-            int secondListStartLine)
+        public List<string> GetDuplicateColumnsBetweenLists(ExcelSearchOptions options)
         {
-            if (string.IsNullOrEmpty(fullExcelFileName))
+            if (string.IsNullOrEmpty(options.FullExcelFileName))
             {
                 throw new ArgumentException("Excel file name cannot be empty.");
             }
@@ -104,7 +86,7 @@ namespace Epam.Trainings.Training_7
                 application.DefaultVersion = ExcelVersion.Excel2013;
                 IWorkbook workbook;
 
-                using (FileStream fs = new FileStream(fullExcelFileName, FileMode.Open))
+                using (FileStream fs = new FileStream(options.FullExcelFileName, FileMode.Open))
                 {
                     workbook = excelEngine.Excel.Workbooks.Open(fs);
                 }
@@ -120,12 +102,12 @@ namespace Epam.Trainings.Training_7
 
                 List<string> firstList = this.GetItemsFromRange(
                     worksheet,
-                    firstListColumn,
-                    firstListStartLine);
+                    options.FirstListColumn,
+                    options.FirstListStartLine);
                 List<string> secondList = this.GetItemsFromRange(
                     worksheet,
-                    secondListColumn,
-                    secondListStartLine);
+                    options.SecondListColumn,
+                    options.SecondListStartLine);
 
                 result = firstList.Intersect(secondList).ToList();
             }
