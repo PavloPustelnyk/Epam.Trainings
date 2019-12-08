@@ -7,6 +7,7 @@
 namespace Epam.Trainings.TrainingRunners
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using Epam.Trainings.Logger;
     using Epam.Trainings.Readers;
@@ -85,6 +86,7 @@ namespace Epam.Trainings.TrainingRunners
         /// </summary>
         private void FirstVarTask()
         {
+            this.FindDuplicateValuesInExcel();
             this.FindUniqueValuesInExcel();
         }
 
@@ -95,7 +97,7 @@ namespace Epam.Trainings.TrainingRunners
         private void SecondVarTask()
         {
             this.FindDuplicateFiles();
-            this.FindUniqureFiles();
+            this.FindUniqueFiles();
         }
 
         /// <summary>
@@ -104,7 +106,7 @@ namespace Epam.Trainings.TrainingRunners
         /// </summary>
         private void FindUniqueValuesInExcel()
         {
-            this.Writer.WriteLine("\nVar 1 Task 1: Unique values between two lists in Excel\n");
+            this.Writer.WriteLine("\nVar 1 Task 2: Unique values between two lists in Excel\n");
 
             try
             {
@@ -115,7 +117,7 @@ namespace Epam.Trainings.TrainingRunners
                 if (!int.TryParse(this.Configuration["list1StartLine"], out int firstListStartLine)
                     || !int.TryParse(this.Configuration["list2StartLine"], out int secondListStartLine))
                 {
-                    throw new ArgumentException("Wrong start lines in appsetting.Runners.json file.");
+                    throw new ArgumentException($"Wrong start lines in {Configuration.GetType().Name} configuration.");
                 }
 
                 var files = searcher.GetUniqueColumnsBetweenLists(
@@ -128,20 +130,7 @@ namespace Epam.Trainings.TrainingRunners
                 watch.Stop();
                 this.Writer.WriteLine($"Time of searching: {watch.ElapsedMilliseconds:N}");
 
-                IListWriter listWriter;
-
-                //If output value in configuraton file is set to 'excel' - write to excel file
-                //Otherwise - write to console.
-                if (this.Configuration["output"] == "excel")
-                {
-                    listWriter = new ExcelListWriter(this.Configuration["var1Result"]);
-                }
-                else
-                {
-                    listWriter = new ConsoleListWriter();
-                }
-
-                listWriter.WriteList(files, "Var 1 Task 1: Unique Items in Excel lists");
+                OutputList(files, "Var 1 Task 2: Unique Items in Excel lists", "var1task2Result");
             }
             catch (ArgumentException e)
             {
@@ -152,10 +141,74 @@ namespace Epam.Trainings.TrainingRunners
         }
 
         /// <summary>
+        /// Method to perform task for Variant 1.
+        /// Output all unique values between two lists in excel.
+        /// </summary>
+        private void FindDuplicateValuesInExcel()
+        {
+            this.Writer.WriteLine("\nVar 1 Task 2: Duplicate values between two lists in Excel\n");
+
+            try
+            {
+                var watch = System.Diagnostics.Stopwatch.StartNew();
+
+                ExcelListSearcher searcher = new ExcelListSearcher();
+
+                if (!int.TryParse(this.Configuration["list1StartLine"], out int firstListStartLine)
+                    || !int.TryParse(this.Configuration["list2StartLine"], out int secondListStartLine))
+                {
+                    throw new ArgumentException($"Wrong start lines in {Configuration.GetType().Name} configuration.");
+                }
+
+                var files = searcher.GetDuplicateColumnsBetweenLists(
+                    this.Configuration["var1Input"],
+                    this.Configuration["list1Column"],
+                    firstListStartLine,
+                    this.Configuration["list2Column"],
+                    secondListStartLine);
+
+                watch.Stop();
+                this.Writer.WriteLine($"Time of searching: {watch.ElapsedMilliseconds:N}");
+
+                OutputList(files, "Var 1 Task 1: Duplicate Items in Excel lists", "var1task1Result");
+            }
+            catch (ArgumentException e)
+            {
+                this.Writer.WriteLine(e.Message);
+                this.Logger.LogMessage($"Class - SeventhTrainingRunner | Method - FindUniqueValuesInExcel | " +
+                    $"{e.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Outputs list of strings with header into specified in configuration file way
+        /// </summary>
+        /// <param name="files">List of strings to be outputed</param>
+        /// <param name="header">Header of output</param>
+        /// <param name="outputFile">String of file in configuration</param>
+        private void OutputList(List<string> files, string header, string outputFile = "")
+        {
+            IListWriter listWriter;
+
+            //If output value in configuraton file is set to 'excel' - write to excel file
+            //Otherwise - write to console.
+            if (this.Configuration["output"] == "excel")
+            {
+                listWriter = new ExcelListWriter(this.Configuration[outputFile]);
+            }
+            else
+            {
+                listWriter = new ConsoleListWriter();
+            }
+
+            listWriter.WriteList(files, header);
+        }
+
+        /// <summary>
         /// Method to perform first task for Variant 2.
         /// Output all unique files between two directories.
         /// </summary>
-        private void FindUniqureFiles()
+        private void FindUniqueFiles()
         {
             this.Writer.WriteLine("\nVar 2 Task 1: Unique Files\n");
 
@@ -169,20 +222,7 @@ namespace Epam.Trainings.TrainingRunners
                 watch.Stop();
                 this.Writer.WriteLine($"Time of searching: {watch.ElapsedMilliseconds:N}");
 
-                IListWriter listWriter;
-
-                //If output value in configuraton file is set to 'excel' - write to excel file
-                //Otherwise - write to console.
-                if (this.Configuration["output"] == "excel")
-                {
-                    listWriter = new ExcelListWriter(this.Configuration["var2task2Result"]);
-                }
-                else
-                {
-                    listWriter = new ConsoleListWriter();
-                }
-
-                listWriter.WriteList(files, "Task 2: Unique files.");
+                OutputList(files, "Var 2 Task 2: Unique files.", "var1task2Result");
             }
             catch (ArgumentException e)
             {
@@ -198,7 +238,7 @@ namespace Epam.Trainings.TrainingRunners
         /// </summary>
         private void FindDuplicateFiles()
         {
-            this.Writer.WriteLine("\nVar 2 Task 1: Duplicate Files\n");
+            this.Writer.WriteLine("\nVar 2 Task 2: Duplicate Files\n");
 
             try
             {
@@ -210,20 +250,7 @@ namespace Epam.Trainings.TrainingRunners
                 watch.Stop();
                 this.Writer.WriteLine($"Time of searching: {watch.ElapsedMilliseconds:N}");
 
-                IListWriter listWriter;
-
-                //If output value in configuraton file is set to 'excel' - write to excel file
-                //Otherwise - write to console.
-                if (this.Configuration["output"] == "excel")
-                {
-                    listWriter = new ExcelListWriter(this.Configuration["var2task1Result"]);
-                }
-                else
-                {
-                    listWriter = new ConsoleListWriter();
-                }
-
-                listWriter.WriteList(files, "Task 1: Duplicate files.");
+                OutputList(files, "Var 2 Task 2: Unique files.", "var1task1Result");
             }
             catch (ArgumentException e)
             {

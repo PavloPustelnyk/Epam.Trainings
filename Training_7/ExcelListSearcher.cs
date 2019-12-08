@@ -10,7 +10,6 @@ namespace Epam.Trainings.Training_7
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using Microsoft.Extensions.Configuration;
     using Syncfusion.XlsIO;
 
     /// <summary>
@@ -18,22 +17,6 @@ namespace Epam.Trainings.Training_7
     /// </summary>
     public class ExcelListSearcher
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ExcelListSearcher" /> class.
-        /// Creates configuration for settings file.
-        /// </summary>
-        public ExcelListSearcher()
-        {
-            this.Configuration = new ConfigurationBuilder()
-                                .AddJsonFile("appsettings.json", true, true)
-                                .Build();
-        }
-
-        /// <summary>
-        /// Gets or sets Configuration.
-        /// </summary>
-        private IConfigurationRoot Configuration { get; set; }
-
         /// <summary>
         /// Find all unique values between two lists in Excel file.
         /// Considers all values from specified start line to first empty cell.
@@ -87,6 +70,64 @@ namespace Epam.Trainings.Training_7
                     secondListStartLine);
 
                 result = firstList.Except(secondList).Union(secondList.Except(firstList)).ToList();
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Find all duplicate values between two lists in Excel file.
+        /// Considers all values from specified start line to first empty cell.
+        /// </summary>
+        /// <param name="fullExcelFileName">Full name of Excel file</param>
+        /// <param name="firstListColumn">Column of first list in Excel file</param>
+        /// <param name="firstListStartLine">Start line of first list in Excel file</param>
+        /// <param name="secondListColumn">Column of second list in Excel file</param>
+        /// <param name="secondListStartLine">Start line of second list in Excel file</param>
+        /// <returns>List of duplicate values between two lists in Excel file</returns>
+        public List<string> GetDuplicateColumnsBetweenLists(
+            string fullExcelFileName,
+            string firstListColumn,
+            int firstListStartLine,
+            string secondListColumn,
+            int secondListStartLine)
+        {
+            if (string.IsNullOrEmpty(fullExcelFileName))
+            {
+                throw new ArgumentException("Excel file name cannot be empty.");
+            }
+
+            List<string> result = new List<string>();
+            using (ExcelEngine excelEngine = new ExcelEngine())
+            {
+                IApplication application = excelEngine.Excel;
+                application.DefaultVersion = ExcelVersion.Excel2013;
+                IWorkbook workbook;
+
+                using (FileStream fs = new FileStream(fullExcelFileName, FileMode.Open))
+                {
+                    workbook = excelEngine.Excel.Workbooks.Open(fs);
+                }
+
+                if (workbook == null)
+                {
+                    throw new ArgumentException("Wrong excel file name.");
+                }
+
+                application.UseFastRecordParsing = true;
+
+                IWorksheet worksheet = workbook.Worksheets[0];
+
+                List<string> firstList = this.GetItemsFromRange(
+                    worksheet,
+                    firstListColumn,
+                    firstListStartLine);
+                List<string> secondList = this.GetItemsFromRange(
+                    worksheet,
+                    secondListColumn,
+                    secondListStartLine);
+
+                result = firstList.Intersect(secondList).ToList();
             }
 
             return result;
