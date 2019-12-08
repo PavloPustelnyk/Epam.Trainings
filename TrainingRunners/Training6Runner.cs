@@ -37,6 +37,7 @@ namespace Epam.Trainings.TrainingRunners
         /// </summary>
         public void Run()
         {
+            this.Writer.Clear();
             this.Writer.WriteLine("\nTraining 6: StyleCop\n");
 
             this.RectanglesIntersectTask();
