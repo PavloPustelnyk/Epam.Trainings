@@ -29,11 +29,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Training_7", "Training_7\Tr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IoCContainer", "IoCContainer\IoCContainer.csproj", "{B6403C82-166A-41B2-A667-5A067143190B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epam.Training.Tests", "Epam.Training.Tests\Epam.Training.Tests.csproj", "{ABF1C1E9-DD7D-4847-AB84-84E77C250F36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Epam.Trainings.Tests", "Epam.Training.Tests\Epam.Trainings.Tests.csproj", "{ABF1C1E9-DD7D-4847-AB84-84E77C250F36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Training_8", "Training_8\Training_8.csproj", "{8B83CA68-31FD-4C96-BFAB-E520E8BDE09E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Training_8", "Training_8\Training_8.csproj", "{8B83CA68-31FD-4C96-BFAB-E520E8BDE09E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Training_8.Tests", "Training_8.Tests\Training_8.Tests.csproj", "{92A094FF-37FB-486A-ADDB-8808A037AE08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Training_8.Tests", "Training_8.Tests\Training_8.Tests.csproj", "{92A094FF-37FB-486A-ADDB-8808A037AE08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
