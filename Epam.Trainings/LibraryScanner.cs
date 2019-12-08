@@ -15,12 +15,12 @@ namespace Epam.Trainings
     /// <summary>
     /// Reflection Scanner for specified type.
     /// </summary>
-    public class TrainingRunnersScanner
+    public class LibraryScanner
     {
         /// <summary>
         /// Gets or sets path to directory to scan for specified type.
         /// </summary>
-        public static string DirPath { get; set; } = AppDomain.CurrentDomain.BaseDirectory;
+        public static string DirectoryPath { get; set; } = AppDomain.CurrentDomain.BaseDirectory;
 
         /// <summary>
         /// Method to scan all DLL files in specified directory.
@@ -28,7 +28,7 @@ namespace Epam.Trainings
         /// <returns>Array of DLL files names</returns>
         public static string[] ScanLibs()
         {
-            return Directory.GetFiles(DirPath, "*.dll", SearchOption.AllDirectories);
+            return Directory.GetFiles(DirectoryPath, "*.dll", SearchOption.AllDirectories);
         }
 
         /// <summary>
@@ -39,27 +39,28 @@ namespace Epam.Trainings
         public static List<T> Scan<T>()
         {
             var result = new List<T>();
-            var filePaths = ScanLibs();
+            var libs = ScanLibs();
 
-            foreach (var filePath in filePaths)
+            foreach (var lib in libs)
             {
-                var a = Assembly.LoadFrom(filePath);
-                var allTypes = a.GetTypes();
+                var assembly = Assembly.LoadFrom(lib);
+                var assemblyTypes = assembly.GetTypes();
 
-                var typeslist = allTypes.Where(p => typeof(T).IsAssignableFrom(p) && p.Name != typeof(T).Name);
+                var typeslist = assemblyTypes.Where(p => typeof(T).IsAssignableFrom(p) && p.Name != typeof(T).Name);
 
                 foreach (var item in typeslist)
                 {
-                    var newInstance = (T)a.CreateInstance(item.ToString());
+                    var newInstance = (T)assembly.CreateInstance(item.ToString());
 
                     if (newInstance == null)
                     {
-                        throw new Exception($"Could not initialize instance in dll: {filePath}");
+                        throw new Exception($"Could not initialize instance in dll: {lib}");
                     }
 
                     result.Add(newInstance);
                 }
             }
+
             result.Sort((x, y) => x.GetType().Name.CompareTo(y.GetType().Name));
             return result;
         }

@@ -33,7 +33,7 @@ namespace Epam.Trainings
 
             try
             {
-                var runners = TrainingRunnersScanner.Scan<ITrainingRunner>();
+                var runners = LibraryScanner.Scan<ITrainingRunner>();
                 InitializeRunners(runners);
                 runners.ForEach(r => r.Run());
             }
