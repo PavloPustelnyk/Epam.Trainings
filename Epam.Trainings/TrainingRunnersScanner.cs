@@ -15,7 +15,7 @@ namespace Epam.Trainings
     /// <summary>
     /// Reflection Scanner for specified type.
     /// </summary>
-    public class ReflectionScanner
+    public class TrainingRunnersScanner
     {
         /// <summary>
         /// Gets or sets path to directory to scan for specified type.
