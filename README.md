@@ -3,6 +3,8 @@ Epam.Trainings solution contains projects for all trainings with runners, custom
 
 ## Projects
 * [Epam.Trainings](https://github.com/PavloPustelnyk/Epam.Trainings/blob/master/Epam.Trainings) - Main console project.
+* [IoCContainer](https://github.com/PavloPustelnyk/Epam.Trainings/blob/master/IoCContainer) - custom IoC Container.
+* [OneDrive.ConsoleApp](https://github.com/PavloPustelnyk/Epam.Trainings/blob/master/OneDrive.ConsoleApp) - console project for reading Excel files from OneDrive.
 * [Logger](https://github.com/PavloPustelnyk/Epam.Trainings/blob/master/Logger) - custom Logger project.
 * [Input Readers](https://github.com/PavloPustelnyk/Epam.Trainings/tree/master/InputReaders) - code library for input readers.
 * [Output Writers](https://github.com/PavloPustelnyk/Epam.Trainings/tree/master/OutputWriters) - code library for output writers.
