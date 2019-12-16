@@ -16,3 +16,4 @@ Epam.Trainings solution contains projects for all trainings with runners, custom
 * [Training 5](https://github.com/PavloPustelnyk/Epam.Trainings/tree/master/Training_5) - code library for Training 5.
 * [Training 6](https://github.com/PavloPustelnyk/Epam.Trainings/tree/master/Training_6) - code library for Training 6.
 * [Training 7](https://github.com/PavloPustelnyk/Epam.Trainings/tree/master/Training_7) - code library for Training 7.
+* [Training 8](https://github.com/PavloPustelnyk/Epam.Trainings/tree/master/Training_8) - code library for Training 8.
